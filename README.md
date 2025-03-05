@@ -9,6 +9,8 @@ Here are some sources about the underlying theoretical aspects:
  - [Spartan Type Theory](https://math.andrej.com/wp-content/uploads/2017/12/Spartan-Type-Theory.pdf) by [Andrej Bauer](https://www.andrej.com/)
  - [An Introduction to Univalent Foundations for Mathematicians](https://www.ams.org/journals/bull/2018-55-04/S0273-0979-2018-01616-9/S0273-0979-2018-01616-9.pdf) (the first 5 sections) by Dan Grayson
  - [Naive Type Theory](https://people.cs.nott.ac.uk/psztxa/publ/fomus19.pdf) by [Thorsten Altenkirch](https://people.cs.nott.ac.uk/psztxa/)
+ - [Type Theory](https://plato.stanford.edu/entries/type-theory/) in Stanford Encyclopedia of Philosophy
+ - [Introduction to Type Theory](https://www.cs.ru.nl/~herman/PUBS/IntroTT-improved.pdf) by [Herman Geuvers](https://www.cs.ru.nl/~herman/)
 
 ## Some First Steps before the first Steps
 
