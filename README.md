@@ -19,13 +19,21 @@ Before starting with installations on your computer, here are some first steps o
 - [The Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/nng4)
 - [The Set Theory Game](https://adam.math.hhu.de/#/g/djvelleman/stg4)
 
-## Setting Things Up on you Computer
+## Setting Lean Up on your Computer
 
 Participation in the Seminar requires local installations. These steps should help:
 
 - Follow the following [instructions](https://leanprover-community.github.io/get_started.html) 
 - **Note:** Part of the installation involves installing [Visual Studio Code](https://code.visualstudio.com/) (where we write Lean code) and [git](https://git-scm.com/) (for version control)
 - **Warning:** if you are using Windows you might have to deactivate your anti-virus during the installation process!
+
+## Setting Up this Project on your Computer
+
+As part of this course you need to set up this project on your own computer:
+
+- Make a [GitHub](https://github.com/) account.
+- Fork this repository to your own account.
+- Clone the repository to your local computer so that you can start working with it. 
 
 ## Setting Things Up Online
 
