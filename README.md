@@ -62,3 +62,7 @@ Here are is some interesting learning material:
 - You should make a [GitHub](https://github.com/) account
 - There is a [Zulip channel](https://leanprover.zulipchat.com/) that has a lot of useful information.
 -->
+
+## Acknowledgement
+
+The style and the content is very much motivated by the work of [Floris van Doorn](https://florisvandoorn.com/) for his [course in Winter semester 2024](https://github.com/fpvandoorn/LeanCourse24/).
