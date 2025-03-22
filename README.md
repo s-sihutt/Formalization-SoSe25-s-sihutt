@@ -27,9 +27,18 @@ Participation in the Seminar requires local installations. These steps should he
 - **Note:** Part of the installation involves installing [Visual Studio Code](https://code.visualstudio.com/) (where we write Lean code) and [git](https://git-scm.com/) (for version control)
 - **Warning:** if you are using Windows you might have to deactivate your anti-virus during the installation process!
 
-<!-- ## Setting Things Up Online  -->
+## Setting Things Up Online
 
-<!-- If there are any challenges with the local installation, here are some (ideally temporary) online solutions: -->
+If there are any challenges with the local installation, here are some (temporary) online solutions:
+
+- There is an online option for experimentation with Lean: [Lean Online](https://live.lean-lang.org/)
+- A more advanced option is to work with the project via GitHub Codespaces:
+
+<a href='https://codespaces.new/nimarasekh/Formalization-SoSe25' target="_blank" rel="noreferrer noopener"><img src='https://github.com/codespaces/badge.svg' alt='Open in GitHub Codespaces' style='max-width: 100%;'></a>
+
+- Another option to work with the project is via Gitpod:
+  
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nimarasekh/Formalization-SoSe25)
 
 ## Learning Material
 
@@ -39,7 +48,9 @@ Here are is some interesting learning material:
 - [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/) by [Jeremy Avigad](https://github.com/avigad) and [Patrick Massot](https://github.com/PatrickMassot) 
 - [Theorem Proving in Lean 4](https://lean-lang.org/theorem_proving_in_lean4/) by [Jeremy Avigad](https://github.com/avigad), [Leonardo de Moura](https://leodemoura.github.io/), [Soonho Kong](https://github.com/soonhokong) and [Sebastian Ullrich](https://github.com/kha)
 
+<!--
 ## Some Other Recommendations
 
 - You should make a [GitHub](https://github.com/) account
 - There is a [Zulip channel](https://leanprover.zulipchat.com/) that has a lot of useful information.
+-->
