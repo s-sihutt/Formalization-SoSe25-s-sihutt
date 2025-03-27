@@ -12,6 +12,10 @@ Here are some sources about the underlying theoretical aspects:
  - [Type Theory](https://plato.stanford.edu/entries/type-theory/) in Stanford Encyclopedia of Philosophy
  - [Introduction to Type Theory](https://www.cs.ru.nl/~herman/PUBS/IntroTT-improved.pdf) by [Herman Geuvers](https://www.cs.ru.nl/~herman/)
 
+ Here are some sources about various proof assistants: 
+ - [Proof Assistants: history, ideas and future](https://www.cs.ru.nl/~herman/PUBS/proofassistants.pdf) by [Herman Geuvers](https://www.cs.ru.nl/~herman/)
+ - [The Seventeen Provers of the World](https://www.cs.ru.nl/~freek/comparison/comparison.pdf) by [Freek Wiedijk](https://www.cs.ru.nl/staff/Freek.Wiedijk/)
+
 ## Some First Steps before the first Steps
 
 Before starting with installations on your computer, here are some first steps one can take online:
