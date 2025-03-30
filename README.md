@@ -16,9 +16,9 @@ Here are some sources about the underlying theoretical aspects:
  - [Proof Assistants: history, ideas and future](https://www.cs.ru.nl/~herman/PUBS/proofassistants.pdf) by [Herman Geuvers](https://www.cs.ru.nl/~herman/)
  - [The Seventeen Provers of the World](https://www.cs.ru.nl/~freek/comparison/comparison.pdf) by [Freek Wiedijk](https://www.cs.ru.nl/staff/Freek.Wiedijk/)
 
-## Some First Steps before the first Steps
+## Some First Steps before the First Steps
 
-Before starting with installations on your computer, here are some first steps one can take online:
+Before starting with installations on your computer, here are some first games one can try online (not required):
 
 - [The Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/nng4)
 - [The Set Theory Game](https://adam.math.hhu.de/#/g/djvelleman/stg4)
