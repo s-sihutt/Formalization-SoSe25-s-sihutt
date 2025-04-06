@@ -117,6 +117,7 @@ Proofs with Computers: Introduction}
 			\item Overview and rules for the lecture
 			\item Projects
 			\item History 
+			\item Background
 			\item Logic
 		\end{itemize} 
 		\item \textbf{Starting next week:} Formalization in Lean
@@ -128,7 +129,7 @@ Proofs with Computers: Introduction}
 	\begin{enumerate}
 		\item Everyone needs access to a laptop!
 		\item First steps: Installation of VScode, Lean and Git and signing up in GitHub.
-		\item If there are any problems: Questions!
+		\item If there are any problems: \textbf{Ask!}
 	\end{enumerate}
 
 \end{frame}
@@ -183,7 +184,7 @@ Proofs with Computers: Introduction}
 		\item Since the 2000s: 
 		\begin{itemize}
 		 \item New languages: \textbf{Metamath}, \textbf{Lean}, ...
-		 \item Formalization of interesting problems: \textbf{Four color theorem} (2005), \textbf{Kepler conjecture}, ...
+		 \item Formalization of interesting problems: \textbf{Four color theorem} (2005), \textbf{Kepler conjecture} (2014), ...
 		\end{itemize}
 	 \item \textbf{Why now?} User friendlier, AI, ... 
 	\end{enumerate}
@@ -265,8 +266,8 @@ Proofs with Computers: Introduction}
 			\item Lean was developed in 2013 by Leonardo de Moura (first at Microsoft, now at Amazon).
 			\item Lean 4 was released in 2021 and should not change anymore.
 			\item Structurally, it resembles Coq. 
-			\item Mathematics in Lean is in MathLib! 
-			\item \emph{Relatively} easy to use and learn.
+			\item Mathematics in Lean is in MathLib Library! 
+			\item \textbf{Relatively} easy to use and learn.
 			\item But there \textbf{are} many other options!
 		\end{enumerate}
 \end{frame}
@@ -295,6 +296,28 @@ Proofs with Computers: Introduction}
 	\]
 \end{frame}
 
+\begin{frame}
+	\frametitle{Examples}
+	\[
+	\begin{tabular}{|c|c|}
+		\hline 
+		\textbf{Classical} & \textbf{What we want} \\ \hline
+		Prop $P$ & $P :$ Prop \\ 
+		Formula for Set X & Function f$\colon$ X $\to$ Prop \\
+		Proof for prop $P$ & $\sigma : P$ \\
+		Proof for $P \to Q$ & Function $P \to Q$ \\ 
+		x = y & (x = y) not empty \\ \hline 
+	\end{tabular}
+	\]
+	Proof for prop 
+	\[ \exists S \forall X \forall f,g\colon S \to X (f = g)\]
+ \[
+	\begin{tabular}{|l|l|} \hline 
+		A set S & A pair $(S,\pi)$ \\
+		and a proof f = g & $\pi \colon (X,f,g) \to (f = g) $ \\ \hline 
+	\end{tabular}
+	\]
+\end{frame}
 
 \begin{frame}
 	\frametitle{Examples in Lean}

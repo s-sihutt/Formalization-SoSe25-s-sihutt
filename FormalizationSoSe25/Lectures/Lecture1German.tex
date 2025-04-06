@@ -117,6 +117,7 @@ Beweise mit Computern: Einführung}
 			\item Übersicht und Regeln für die Vorlesung
 			\item Projekte
 			\item Geschichte 
+			\item Hintergrund
 			\item Logik
 		\end{itemize} 
 		\item \textbf{Ab übernächste Woche:} Formalisierung in Lean
@@ -128,7 +129,7 @@ Beweise mit Computern: Einführung}
 	\begin{enumerate}
 		\item Jeder muss Zugang zu einem Laptop haben!
 		\item Erste Schritte: Installation von VScode, Lean und Git und Anmeldung in GitHub
-		\item Falls es Probleme gibt: Fragen!
+		\item Falls es Probleme gibt: \textbf{Fragen!}
 	\end{enumerate}
 
 \end{frame}
@@ -183,7 +184,7 @@ Beweise mit Computern: Einführung}
 		\item Seit den 2000ern: 
 		\begin{itemize}
 		 \item Neue Sprachen: \textbf{Metamath}, \textbf{Lean}, ...
-		 \item Formalisierung von interessanten Problemen: \textbf{Vier-Farben-Satz} (2005), \textbf{Keplervermutung}, ...
+		 \item Formalisierung von interessanten Problemen: \textbf{Vier-Farben-Satz} (2005), \textbf{Keplervermutung} (2014), ...
 		\end{itemize}
 	 \item \textbf{Warum jetzt?} Benutzerfreundlicher, KI, ... 
 	\end{enumerate}
@@ -265,8 +266,8 @@ Beweise mit Computern: Einführung}
 			\item Lean wurde in 2013 von Leonardo	de Moura (erst in Microsoft, jetzt in Amazon) entwickelt.
 			\item Lean 4 wurde in 2021 veröffentlicht und sollte stabil sein.
 			\item Von der Struktur ähnelt es Coq 
-			\item Mathematik in Lean ist in MathLib! 
-			\item \emph{Relativ} einfach zu benutzen	und zu lernen.
+			\item Mathematik in Lean ist in MathLib Library! 
+			\item \textbf{Relativ} einfach zu benutzen	und zu lernen.
 			\item Aber es \textbf{gibt} viele andere Optionen!
 		\end{enumerate}
 \end{frame}
@@ -295,6 +296,28 @@ Beweise mit Computern: Einführung}
 	\]
 \end{frame}
 
+\begin{frame}
+	\frametitle{Beispiele}
+	\[
+	\begin{tabular}{|c|c|}
+		\hline 
+		\textbf{Klassisch} & \textbf{Was wir wollen} \\ \hline
+		Satz $P$ & $P :$ Prop \\ 
+		Formel für Menge X & Abbildung f$\colon$ X $\to$ Prop \\
+		Beweis für Satz $P$ & $\sigma : P$ \\
+		Beweis für $P \to Q$ & Abbildung $P \to Q$ \\ 
+		x = y & (x = y) ist nicht leer \\ \hline 
+	\end{tabular}
+	\]
+	Beweis für Satz 
+	\[ \exists S \forall X \forall f,g\colon S \to X (f = g)\]
+ \[
+	\begin{tabular}{|l|l|} \hline 
+		Eine Menge S & Ein Paar $(S,\pi)$ \\
+		und ein Beweis f = g & $\pi \colon (X,f,g) \to (f = g) $ \\ \hline 
+	\end{tabular}
+	\]
+\end{frame}
 
 \begin{frame}
 	\frametitle{Beispiel in Lean}
