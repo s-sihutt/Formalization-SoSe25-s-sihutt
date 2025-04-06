@@ -53,7 +53,7 @@ You can still run Lean in your browser by using Codespaces or Gitpod, see the th
 
 I will update the lectures and exercises as we go along. In order to get the most recent updates you have to **pull** the changes. There are several options:
 
-- Open the terminal in VS Code (``ctrl+```/`cmd+``) and then write `git pull` and press `enter`.
+- Open the terminal in VS Code (``ctrl+```/``cmd+```) and then write `git pull` and press `enter`.
 - Open the `Source Control` tab in VS Code (third icon in the top-left, or `ctrl+shift+G`/`cmd+shift+G`) and then under `⋯` (More actions) you can click `Pull` to get the latest changes.
 - **Note:** If you use `Source Control` you should *not* press `Sync`, since that will try to upload your changes to the assignment files to GitHub (you don't have the rights to do this).
 - Occasionally there is an update to the Lean version for the repository, in which case you will be informed. In that case after
