@@ -32,7 +32,7 @@ Please following steps (before starting the steps read the whole instructions on
 - Follow the steps outlined in the following [instructions](https://leanprover-community.github.io/get_started.html) 
 - **Note:** Part of the installation involves installing [Visual Studio Code](https://code.visualstudio.com/) (where we write Lean code) and [git](https://git-scm.com/) (for version control)
 - **Warning:** if you are using Windows you might have to deactivate your anti-virus during the installation process!
-- **Small Change** In the step **Set up Lean 4 project** click on **Download an existing project** (third bullet point). Choose `Git repository URL`, enter `https://github.com/nimarasekh/Formalization-SoSe25` and then select a folder where you want to download this repository, and specify a folder name. Then press `Create project folder` and wait a few minutes.
+- **Small Change:** In the step **Set up Lean 4 project** click on **Download an existing project** (third bullet point). Choose `Git repository URL`, enter `https://github.com/nimarasekh/Formalization-SoSe25` and then select a folder where you want to download this repository, and specify a folder name. Then press `Create project folder` and wait a few minutes.
 
 * When you have downloaded the repository a message appears allowing you to open the project folder.
 To test that everything is working, open the repository and open the file `Formalization-SoSe25/Cover.lean`.
