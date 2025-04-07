@@ -28,7 +28,7 @@ variable {C} [catC : CategoryTheory.Category C] {X Y Z : C} (f : X ⟶ Y) (h : Y
 def composition' (g : Y ⟶ Z) : X ⟶ Z := by {
  -- "CLICK HERE" Here you should see a proof state with goal X ⟶ Z
  exact catC.comp f g
-} --"CLICK HERE" Here you should see "No goals"
+} --"CLICK HERE" If you click here you should see "No goals"
 
 -- If any of the steps above did not work:
 -- Stop right here and check the steps or ask for help!
