@@ -120,4 +120,4 @@ Here are some interesting books and learning material, that will serve the basis
 
 ## Acknowledgement
 
-The style and the content is very much motivated by the work of [Floris van Doorn](https://florisvandoorn.com/) for his [course in Winter semester 2024](https://github.com/fpvandoorn/LeanCourse24/).
+The style and the content is very much motivated by the work of [Floris van Doorn](https://florisvandoorn.com/) for his [course in Winter semester 2024](https://github.com/fpvandoorn/LeanCourse24/). The course material and exercises are heavily influenced by [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/).
