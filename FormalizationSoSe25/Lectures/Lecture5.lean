@@ -188,7 +188,7 @@ variable (Z : Type n)
 #check Z
 #check Type n
 
-universe u v w
+universe u v w 
 
 #check Type u
 variable (A : Type u)
@@ -225,7 +225,7 @@ section structures
 In mathematics we layer structures to study more
 complicated objects and ideas:
 * A group is a set with operations ...
-* A ringt is a set with operations ...
+* A ring is a set with operations ...
 * A topological spaces is a set with ...
 * A metric space is a set with ...
 * A vector space is a set with ...
@@ -260,7 +260,7 @@ example : new_pair := new_pair.mk 1 2
 -- We can also explicitly provide the input names:
 example : new_pair := new_pair.mk (x := 1) (y := 2)
 
-example : new_pair := new_pair.mk (y := 1) (x := 2)
+example : new_pair := new_pair.mk (y := 2) (x := 1)
 
 example : new_pair := ⟨1, 2⟩
 
@@ -269,7 +269,7 @@ example : new_pair where
   y := 2
 
 -- These three approaches results in the same object.
-example : new_pair.mk 1 2 = (⟨1, 2⟩ : new_pair) := by rfl
+example : new_pair.mk 1 2 = ⟨1, 2⟩ := by rfl
 
 -- `new_pair` satisfies extensionality.
 -- For `structure` the tactic `cases` is very useful.
@@ -313,6 +313,9 @@ This requires creating a new `namespace`.
 -/
 --
 
+def new_pair.add'' ( a b : new_pair) : new_pair :=
+  ⟨a.x + b.x, a.y + b.y⟩
+
 namespace new_pair
 
 def add (a b : new_pair) : new_pair :=
@@ -328,6 +331,7 @@ def mul (a b : new_pair) : new_pair :=
   ⟨a.x * b.x, a.y * b.y⟩
 
 #check add_comm
+#check add''
 
 def add_comm (a b : new_pair) : add a b = add b a := by
   ext
@@ -343,6 +347,7 @@ end new_pair
 #check new_pair.add
 #check new_pair.mul
 #check new_pair.add_comm
+
 
 end structures
 

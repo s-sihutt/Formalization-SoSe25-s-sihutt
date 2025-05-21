@@ -186,7 +186,7 @@ variable (I : Type) (A : I → Set X)
 
 -- There are various useful ways to deal with indexed unions and intersections.
 #check Set.mem_iUnion
-#check Set.mem_inter_iff
+#check Set.mem_iInter
 
 example {α I : Type} (A B : I → Set α)  : ⋃ i, (A i ∩ B i) ⊆ (⋃ i, A i) ∩ (⋃ i, B i) := by
   intro x
@@ -392,6 +392,7 @@ theorem Cantor ( X : Type) : ∀ f : X → Set X, ¬Function.Surjective f := by
   -- First we pick the set `S` in `Set X`, that cannot be in the image.
   let S := { i | i ∉ f i }
   -- This means `f j = S`
+  -- obtain ⟨j, h⟩ := surjf S
   rcases surjf S with ⟨j, h⟩
 
   -- We now prove `j ∈ S`

@@ -179,7 +179,8 @@ example (P R Q : Prop) (h : P) (k : P → Q) (l : Q → R): R := l (k h)
 
 example (P R Q : Prop) (h : P) (k : P → Q) (l : Q → R): R := by
   have q := k h
-  exact l q
+  have r := l q
+  exact r
 
 -- `ring` is the ring tactic. It simplifies computational expressions in rings.
 
@@ -198,15 +199,15 @@ variable (a b c : ℝ)
 #check (a : ℝ)
 #check mul_comm a b
 #check (mul_comm a b : a * b = b * a)
-#check mul_assoc c a b
+#check mul_assoc a b c
 #check mul_comm a
 #check mul_comm
 
 example (ha : a = b * c) : b * a * c = a * a := by
   rw [mul_comm]
   rw [← mul_assoc]
-  rw [ha]
   rw [mul_comm c b]
+  rw [ha]
 
 -- Checkout exercises for more practice with `rw`.
 

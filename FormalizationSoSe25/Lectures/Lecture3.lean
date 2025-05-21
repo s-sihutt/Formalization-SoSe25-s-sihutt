@@ -331,6 +331,7 @@ example {a b x c d : ℝ} (h1 : a + 1 ≤ b + 1) (h2 : c + 2 ≤ d + 2) :
   · linarith
   · linarith
 
+end advanced_combined_tactics
 
 section advanced_proof_tactics
 
