@@ -68,7 +68,7 @@ We go step by step.
 First we define a new structure `LE₁` that defines a relation on a type `α`.
 -/
 
-class LE₁ (α : Type) where
+class LE₁ (α : Type*) where
   /-- The Less-or-Equal relation. -/
   le : α → α → Prop
 
