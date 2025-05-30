@@ -241,7 +241,7 @@ example : 2 ∈ Nat.primeFactorsList 36 := by
 
 /-
 In general, constructing such a list is not easy.
-But we have some theorem that can help us.
+Here are some facts that can help us.
 -/
 #check Nat.prime_of_mem_primeFactorsList
 #check Nat.prod_primeFactorsList
@@ -320,13 +320,15 @@ theorem exists_prime_factor {n : Nat} (h : 2 ≤ n) : ∃ p : Nat, p.Prime ∧ p
   -- For the rest of the proof we assume that `n` is not prime.
   · induction' n using Nat.strong_induction_on with n ih
   -- We now proceed by strong induction on `n`.
-  -- This means we assume the result hold for all `m < n`.
+  -- This means we assume the result holds for all `m < n`.
     rw [Nat.prime_def_lt] at np
     push_neg at np
     rcases np h with ⟨m, mltn, mdvdn, mne1⟩
-    -- Up to here we established that `n` has a factor `m` that is less than `n`.
-    -- If we establish that `m` is bigger than `2`, then we can use
-    -- the strong induction hypothesis to deduce that `m` has a prime factor.
+    /-
+    Up to here we established that `n` has a factor `m` that is less than `n`.
+    If we establish that `m` is bigger than `2`, then we can use
+    the strong induction hypothesis to deduce that `m` has a prime factor.
+    -/
     have : m ≠ 0 := by
       intro mz
       rw [mz, zero_dvd_iff] at mdvdn
