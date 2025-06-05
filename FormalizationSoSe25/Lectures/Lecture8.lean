@@ -19,9 +19,134 @@ by using `subobject classes`.
 end review
 
 /-
-Today we will do some elementary number theory
+Today we will do some combinatorics and elementary number theory
 -/
 
+
+section finite_sets
+/-
+We already saw that for a type `X` we can define a
+type of subsets of `X` as `Set X`.
+We can also define a type of finite subsets of `X` as `Finset X`.
+-/
+variable (X : Type*)
+#check Finset X
+/-
+`Finset` has the same constructors as `Set`
+-/
+
+variable (A B C : Finset X) [DecidableEq X]
+/-
+Note, here we need to assume that `X` has a decidable equality.
+-/
+-- #check DecidableEq X
+/-
+It logical assumption about a type, which allows determining the finiteness of a subset.
+-/
+
+#check A ∩ B
+#check A ∪ B
+#check A \ B
+#check (∅ : Finset ℕ)
+/-
+Many common types are known to be decidable, such as `ℕ`.
+-/
+variable (C D : Finset ℕ)
+#check C ∩ D
+/-
+Besides the regular operations, finite subsets have a well-defined cardinality.
+-/
+#check A.card
+
+/-
+If we open the namespace `Finset`, we can simplify the notation.
+-/
+
+open Finset
+#check A.card
+#check #A
+
+example : A.card = #A := by rfl
+example : (∅ : Finset X).card = 0 := by rfl
+
+/-
+We can use our previous set builder notation to construct finite sets.
+-/
+#check ({0, 2, 5} : Finset Nat)
+
+example : Finset ℕ := {0, 1, 2}
+
+example : ({0, 1, 2} : Finset Nat).card = 3 := by rfl
+
+/-Finally we can define `Fintype` with the property that the total subset is finite. -/
+
+#check Fintype
+
+variable (X : Type*) [Fintype X]
+/-
+For a `Fintype` we can also define a cardinality.
+-/
+example : ℕ :=  Fintype.card X
+/-
+As usual, if we want to avoid the `Fintype.`, we can open the namespace.
+-/
+open Fintype
+
+example : ℕ := card X
+
+/-
+We can now see that the cardinality of the `Fintype` recovers
+the cardinality of the maximal subset.
+-/
+#check Finset.univ
+#print Finset.univ
+
+example : (Finset.univ : Finset X).card  = card X := by rfl
+example : (@Finset.univ X _ ).card  = card X := by rfl
+/-
+Note here is an interesting examples, where Lean could not figure out the instance
+(or maybe I overcomplicated things).
+-/
+end finite_sets
+
+section combinatorics
+/-
+In the last section we defined finite sets.
+We in particular saw it comes with a well-defined notion of cardinality.
+In this section we will review some combinatorial facts about finite sets.
+-/
+
+open Finset Fintype
+
+/-
+we will start with operations on finite subsets of a type.
+-/
+variable {α β : Type*} [DecidableEq α] [DecidableEq β] (s t : Finset α) (f : α → β)
+
+example : #(s ×ˢ t) = #s * #t := by rw [card_product]
+example : #(s ×ˢ t) = #s * #t := by simp
+
+example : #(s ∪ t) = #s + #t - #(s ∩ t) := by rw [card_union]
+
+example (h : Disjoint s t) : #(s ∪ t) = #s + #t := by rw [card_union_of_disjoint h]
+example (h : Disjoint s t) : #(s ∪ t) = #s + #t := by simp [h]
+
+example (h : Function.Injective f) : #(s.image f) = #s := by rw [card_image_of_injective _ h]
+
+example (h : Set.InjOn f s) : #(s.image f) = #s := by rw [card_image_of_injOn h]
+
+/-
+Similarly, if a type is a `Fintype`, then it has a well-defined cardinality.
+-/
+variable {α β : Type*} [Fintype α] [Fintype β]
+
+example : card (α × β) = card α * card β := by simp
+
+example : card (α ⊕ β) = card α + card β := by simp
+
+example (n : ℕ) : card (Fin n → α) = (card α)^n := by simp
+
+end combinatorics
 
 section natural_numbers
 /-
@@ -349,3 +474,126 @@ See `Exercise8`.
 -/
 
 end infinite_primes
+
+-- Recall `ℝ` is the type of real numbers.
+-- We define a sequence of real numbers as a function `ℕ → ℝ`.
+def RealSequence := ℕ → ℝ
+
+-- Given a sequence, we say it converges to `x : ℝ` if for every `ε > 0`, there exists an `N : ℕ`, such that `| a(n) - x | < ε` for all `n ≥ N`.
+def ConvergesTo (a : RealSequence) (x : ℝ) : Prop :=
+  ∀ ε : ℝ, ε > 0 → ∃ N : ℕ, ∀ n : ℕ, n > N → |(a n) - x| < ε
+
+noncomputable  def overN : RealSequence := fun n => 1/n
+
+#check one_div_lt_one_div_of_lt
+
+#check one_div_lt_one_div
+example : ConvergesTo overN 0 := by
+  intro ε εpos
+  use Nat.ceil (1 / ε)
+  intro n hn
+  simp [Nat.ceil] at hn
+  simp [overN]
+  have this : (1 / ε) < n := by
+    calc
+      (1 / ε) ≤ FloorSemiring.ceil (1 / ε) := by {
+        apply Nat.le_ceil
+      }
+      _   <  n := by simp [hn]
+  have this2 : (1 / (n : ℝ)  < ε) := by
+    calc
+      (1 / (n : ℝ)) < 1 / (1 / ε) := by
+        apply one_div_lt_one_div_of_lt _ this
+        simp [εpos]
+       _  = ε := by simp
+  have this3 : (1 / ε) > 0 := by norm_num; exact εpos
+  have this4: (n : ℝ) > 0 := by
+    calc
+     n > 1 / ε := this
+     _ > 0 := this3
+  have this5 : 1 / (n : ℝ) > 0  := by simp [this4]
+  have this6 : 1 / (n : ℝ) = |1 / (n : ℝ)| := Eq.symm (abs_of_pos this5)
+  simp [this6]
+  have this7 : (↑n)⁻¹ = 1 / (n : ℝ ) := by simp
+  rw [this7]
+  rw [← this6]
+  exact this2
+
+
+def RealFunction := ℝ → ℝ
+
+def isLimit (f : RealFunction) (x : ℝ) (L : ℝ): Prop :=
+  ∀ ε > 0, ∃ δ > 0, ∀ y, 0 < |y - x| ∧ |y - x| < δ → |f y - L| < ε
+
+def isContinuous (f : RealFunction) : Prop :=
+  ∀ ε > 0, ∃ δ > 0, ∀ x y, 0 < |x - y| ∧ |x - y| < δ → |f x - f y| < ε
+
+def identityFunction : RealFunction := fun x => 3*x + 2
+
+def isContinuousIdentity : isContinuous identityFunction := by
+  intro ε εpos
+  have εpos' : ε / 3 > 0 := by simp [εpos]
+  use (ε / 3), εpos'
+  intro x y hxy
+  simp [identityFunction]
+  calc
+    |3* x - 3 * y| = |3 * (x - y)| := by ring_nf
+    _ = |3| * |x - y| := by simp [abs_mul]
+    _ = 3 * |x - y| := by simp
+     _ < 3 * (ε / 3) := by simp [hxy]
+     _  = ε := by ring
+
+
+variable {X : Type*} [DecidableEq X] (A B C: Finset X)
+
+lemma card_union_eq_card_add_card_sub_inter :
+  (A ∪ B).card = A.card + B.card - (A ∩ B).card := by
+  rw [Finset.card_union]
+
+lemma card_union_eq_card_add_card_sub_inter' :
+  (A ∪ B ∪ C).card = A.card + B.card + C.card - (A ∩ B).card - (A ∩ C).card - (B ∩ C).card + (A ∩ B ∩ C).card := by
+  rw [Finset.card_union]
+  rw [Finset.card_union]
+  have this : (A ∪ B) ∩ C = (A ∩ C) ∪ (B ∩ C) := by  sorry
+  rw [this]
+  rw [Finset.card_union]
+  simp
+  have this2 : A ∩ (C ∩ (B ∩ C)) = (A ∩ B ∩ C) := by sorry
+  rw [this2]
+  norm_num
+  sorry
+
+#check mul_inv_cancel
+
+noncomputable def derivativeFunction (f : RealFunction) (x : ℝ) : RealFunction :=
+  fun h => (f (x + h) - f x) / h
+
+lemma derv : isLimit (derivativeFunction (fun x => 3*x + 2) 1) 0 3 := by
+  intro ε εpos
+  use (ε / 3), by simp [εpos]
+  intro y ⟨hy₁ , hy₂ ⟩
+  simp [derivativeFunction]
+  simp at hy₁
+  ring_nf at hy₂
+  ring_nf
+  simp [hy₁]
+  exact εpos
+
+lemma derv2 : isLimit (derivativeFunction (fun x => x^2) 3) 0 6 := by
+  intro ε εpos
+  use ε, by simp [εpos]
+  intro y ⟨hy₁ , hy₂ ⟩
+  simp [derivativeFunction]
+  simp at hy₁
+  ring_nf at hy₂
+  ring_nf
+  simp [hy₁, pow_two]
+  exact hy₂
+
+
+
+-- def isProbabilityDistribution  {S : Type} ( A : Set (Finset S)) (P : A → ℝ) : Prop :=
+--   (∀ a : A, 0 ≤ P a) ∧ Finset.univ.sum P = 1
+
+-- def {S: Type} (P : isProbabilityDistribution) (A B : Set S) : P :=
+--   Finset.univ.sum fun s => P s * (s : ℝ)

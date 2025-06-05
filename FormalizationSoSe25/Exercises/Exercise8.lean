@@ -1,6 +1,48 @@
 import Mathlib.Tactic
 import FormalizationSoSe25.Lectures.Lecture8
 
+section finite_sets
+
+open Finset Fintype
+/-
+For this exercise recall the following properties of `Finset`:
+-/
+#check mem_inter
+#check mem_union
+example (X : Type*) [DecidableEq X] (A B C : Finset X): A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) := by
+  sorry
+
+/-
+This next one should be very straightforward, so don't overthink it!
+-/
+example (X Y : Type*) [Fintype X] [Fintype Y] : card (Fin 2 → (X ⊕ Y)) = (card X)^2 + 2*(card X) * (card Y) + (card Y)^2 := by
+  sorry
+
+/-
+Recall from the lecture how we can prove the following two properties:
+-/
+example {X Y : Type*} [DecidableEq X] [ DecidableEq Y] (A B : Finset X) :
+  #(A ∪ B) = #A  + #B  -  #(A ∩ B)  := by sorry
+
+example {X Y : Type*} [DecidableEq X] [DecidableEq Y] (A : Finset X) (C : Finset Y) :
+  #(A ×ˢ C) = #A * #C := by sorry
+
+/-
+Now, use the experience you gained to solve the following exercise.
+You might also want to use the following properties of `Nat`:
+-/
+
+#check Nat.sub_mul
+#check Nat.mul_sub
+#check Nat.add_mul
+#check Nat.mul_add
+
+example {X Y : Type*} [DecidableEq X] [ DecidableEq Y] (A B : Finset X) (C : Finset Y) :
+  #((A ∪ B) ×ˢ C) = #A * #C + #B * #C -  #(A ∩ B) * #C := by
+  sorry
+
+end finite_sets
+
 section induction
 
 /-
