@@ -39,7 +39,7 @@ variable (A B C : Finset X) [DecidableEq X]
 /-
 Note, here we need to assume that `X` has a decidable equality.
 -/
--- #check DecidableEq X
+#check DecidableEq X
 /-
 It logical assumption about a type, which allows determining the finiteness of a subset.
 -/
@@ -171,11 +171,12 @@ An inductive type is a type that is defined by specifying its constructors.
 #print Nat.rec
 
 
-def recursion {X : Type} (x : X) (s : X → X) : ℕ → X
+def recursion {X : Type} (x : X) (f : X → X) : ℕ → X
   | 0 => x
-  | n + 1 => s (recursion x s n)
+  | n + 1 => f (recursion x f n)
 
-def recursion' {X : Type} (x : X) (s : X → X) : ℕ → X := Nat.rec x (fun _ y => s y)
+def recursion' {X : Type} (x : X) (s : X → X) : ℕ → X :=
+  Nat.rec x (fun _ y => s y)
 
 -- Here is a simple example define factorial using recursion.
 def fac : ℕ → ℕ
@@ -262,7 +263,7 @@ example : ¬ (3 ∣ 5) := by
       have step : 3 * (k + 1 + 1) > 5 := by
         calc
           3 * (k + 1 + 1) = 3 * k + 6 := by rfl
-          _ ≥ 6 := by simp [Nat.le_zero]
+          _ ≥ 6 := by simp
           _ > 5 := by simp
       rw [← h] at step
       contradiction
@@ -274,7 +275,7 @@ example : ¬ (3 ∣ 5) := by
   | 0 => simp at h  -- 3 * 0 = 0 ≠ 5
   | 1 => simp at h  -- 3 * 1 = 3 ≠ 5
   | k' + 2 =>
-    -- Now k ≥ 3, so 3 * k ≥ 9 > 5, contradiction
+    -- Now k ≥ 2, so 3 * k ≥ 6 > 5, contradiction
     have step : 3 * (k' + 2) > 5 := by
       calc
         3 * (k' + 2) = 3 * k' + 6 := by ring
@@ -388,6 +389,7 @@ theorem factorization_pow' (n k p : ℕ) :
   rw [Nat.factorization_pow]
   rfl
 
+set_option trace.Meta.Tactic.simp true
 theorem Nat.Prime.factorization' {p : ℕ} (prime_p : p.Prime) :
     p.factorization p = 1 := by
   rw [prime_p.factorization]
@@ -458,6 +460,7 @@ theorem exists_prime_factor {n : Nat} (h : 2 ≤ n) : ∃ p : Nat, p.Prime ∧ p
       intro mz
       rw [mz, zero_dvd_iff] at mdvdn
       linarith
+
     have mgt2 : 2 ≤ m := two_le this mne1
     -- Almost done!
     by_cases mp : m.Prime
@@ -474,126 +477,3 @@ See `Exercise8`.
 -/
 
 end infinite_primes
-
--- Recall `ℝ` is the type of real numbers.
--- We define a sequence of real numbers as a function `ℕ → ℝ`.
-def RealSequence := ℕ → ℝ
-
--- Given a sequence, we say it converges to `x : ℝ` if for every `ε > 0`, there exists an `N : ℕ`, such that `| a(n) - x | < ε` for all `n ≥ N`.
-def ConvergesTo (a : RealSequence) (x : ℝ) : Prop :=
-  ∀ ε : ℝ, ε > 0 → ∃ N : ℕ, ∀ n : ℕ, n > N → |(a n) - x| < ε
-
-noncomputable  def overN : RealSequence := fun n => 1/n
-
-#check one_div_lt_one_div_of_lt
-
-#check one_div_lt_one_div
-example : ConvergesTo overN 0 := by
-  intro ε εpos
-  use Nat.ceil (1 / ε)
-  intro n hn
-  simp [Nat.ceil] at hn
-  simp [overN]
-  have this : (1 / ε) < n := by
-    calc
-      (1 / ε) ≤ FloorSemiring.ceil (1 / ε) := by {
-        apply Nat.le_ceil
-      }
-      _   <  n := by simp [hn]
-  have this2 : (1 / (n : ℝ)  < ε) := by
-    calc
-      (1 / (n : ℝ)) < 1 / (1 / ε) := by
-        apply one_div_lt_one_div_of_lt _ this
-        simp [εpos]
-       _  = ε := by simp
-  have this3 : (1 / ε) > 0 := by norm_num; exact εpos
-  have this4: (n : ℝ) > 0 := by
-    calc
-     n > 1 / ε := this
-     _ > 0 := this3
-  have this5 : 1 / (n : ℝ) > 0  := by simp [this4]
-  have this6 : 1 / (n : ℝ) = |1 / (n : ℝ)| := Eq.symm (abs_of_pos this5)
-  simp [this6]
-  have this7 : (↑n)⁻¹ = 1 / (n : ℝ ) := by simp
-  rw [this7]
-  rw [← this6]
-  exact this2
-
-
-def RealFunction := ℝ → ℝ
-
-def isLimit (f : RealFunction) (x : ℝ) (L : ℝ): Prop :=
-  ∀ ε > 0, ∃ δ > 0, ∀ y, 0 < |y - x| ∧ |y - x| < δ → |f y - L| < ε
-
-def isContinuous (f : RealFunction) : Prop :=
-  ∀ ε > 0, ∃ δ > 0, ∀ x y, 0 < |x - y| ∧ |x - y| < δ → |f x - f y| < ε
-
-def identityFunction : RealFunction := fun x => 3*x + 2
-
-def isContinuousIdentity : isContinuous identityFunction := by
-  intro ε εpos
-  have εpos' : ε / 3 > 0 := by simp [εpos]
-  use (ε / 3), εpos'
-  intro x y hxy
-  simp [identityFunction]
-  calc
-    |3* x - 3 * y| = |3 * (x - y)| := by ring_nf
-    _ = |3| * |x - y| := by simp [abs_mul]
-    _ = 3 * |x - y| := by simp
-     _ < 3 * (ε / 3) := by simp [hxy]
-     _  = ε := by ring
-
-
-variable {X : Type*} [DecidableEq X] (A B C: Finset X)
-
-lemma card_union_eq_card_add_card_sub_inter :
-  (A ∪ B).card = A.card + B.card - (A ∩ B).card := by
-  rw [Finset.card_union]
-
-lemma card_union_eq_card_add_card_sub_inter' :
-  (A ∪ B ∪ C).card = A.card + B.card + C.card - (A ∩ B).card - (A ∩ C).card - (B ∩ C).card + (A ∩ B ∩ C).card := by
-  rw [Finset.card_union]
-  rw [Finset.card_union]
-  have this : (A ∪ B) ∩ C = (A ∩ C) ∪ (B ∩ C) := by  sorry
-  rw [this]
-  rw [Finset.card_union]
-  simp
-  have this2 : A ∩ (C ∩ (B ∩ C)) = (A ∩ B ∩ C) := by sorry
-  rw [this2]
-  norm_num
-  sorry
-
-#check mul_inv_cancel
-
-noncomputable def derivativeFunction (f : RealFunction) (x : ℝ) : RealFunction :=
-  fun h => (f (x + h) - f x) / h
-
-lemma derv : isLimit (derivativeFunction (fun x => 3*x + 2) 1) 0 3 := by
-  intro ε εpos
-  use (ε / 3), by simp [εpos]
-  intro y ⟨hy₁ , hy₂ ⟩
-  simp [derivativeFunction]
-  simp at hy₁
-  ring_nf at hy₂
-  ring_nf
-  simp [hy₁]
-  exact εpos
-
-lemma derv2 : isLimit (derivativeFunction (fun x => x^2) 3) 0 6 := by
-  intro ε εpos
-  use ε, by simp [εpos]
-  intro y ⟨hy₁ , hy₂ ⟩
-  simp [derivativeFunction]
-  simp at hy₁
-  ring_nf at hy₂
-  ring_nf
-  simp [hy₁, pow_two]
-  exact hy₂
-
-
-
--- def isProbabilityDistribution  {S : Type} ( A : Set (Finset S)) (P : A → ℝ) : Prop :=
---   (∀ a : A, 0 ≤ P a) ∧ Finset.univ.sum P = 1
-
--- def {S: Type} (P : isProbabilityDistribution) (A B : Set S) : P :=
---   Finset.univ.sum fun s => P s * (s : ℝ)
