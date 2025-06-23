@@ -2,8 +2,8 @@
 
 Please fill out the following. You can fill in the project topic once you have decided.
 ```
-Name:
-Project topic:
+Name: Simon Macaillan Hutton
+Project topic: Define limit of map from and to reals usting epsilon-delta definition. That with one x as limit with example of existance and value.
 ```
 
 ## Your own project
