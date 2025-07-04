@@ -23,16 +23,27 @@ For the following exercises, you can use the tactics:
 -/
 
 example (P Q : Prop) : P ∧ Q → Q := by
-  sorry
+  intro h1
+  obtain ⟨hp, hq⟩ := h1
+  exact hq
 
 example (P Q : Prop) : P → P ∨ Q := by
-  sorry
+  intro h1
+  left
+  exact h1
 
 example (P R Q : Prop) (f : P → Q) (g : Q → R): P → R := by
-  sorry
+  intro h1
+  apply g
+  apply f
+  exact h1
 
 example (P Q R S : Prop) (h : P → R) (h' : Q → S) : P ∧ Q → R ∧ S := by
-  sorry
+  intro h1
+  obtain ⟨hP, hQ⟩ := h1
+  constructor
+  · apply h hP
+  · apply h' hQ
 
 example (P Q R : Prop) (h : P ∧ Q → R) (hp : P) (hq : Q) : R := by
   sorry
@@ -40,14 +51,20 @@ example (P Q R : Prop) (h : P ∧ Q → R) (hp : P) (hq : Q) : R := by
 -- The following also requires the function `Nat.zero_le`.
 #check Nat.zero_le
 example : ∃ n : ℕ, ∀ m : ℕ, (n ≤ m) := by
-  sorry
+  use 0
+  exact Nat.zero_le
 
 example (X : Type) (P Q : X → Prop) : (∃ x, P x ∧ Q x) → ∃ x, Q x ∧ P x := by
-  sorry
+  intro h1
+  obtain ⟨x, hp, hq⟩ := h1
+  use x
+
 
 -- Can you solve the next one so that the `use` tactic is used in the last line?
 example (X : Type) (x : X) (P : X → Prop) : (∀ x, P x) → ∃ x, P x := by
-  sorry
+  intro h1
+
+
 
 -- For the next exercise as part of the proof use `have` to obtain a term in `P ∧ R`.
 example (P Q R S T : Prop) (f : P → Q) (g : R → S) (h : Q ∧ S → T) : P ∧ R → T := by
