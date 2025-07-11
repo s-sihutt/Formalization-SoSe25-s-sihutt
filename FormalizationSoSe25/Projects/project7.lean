@@ -36,8 +36,7 @@ theorem testfun1 (x : ℝ) : is_derivative_at  (1 : ℝ) (5 : ℝ)
     intro ε ε_is_larger_than_0
     use ε/4
     simp [ε_is_larger_than_0]
-    have stupid : (3 : ℝ) = 1 + 2 := by ring
-    rw [← stupid]
-    have otherstupid : x - 1 = x + (-1) := SubNegMonoid.sub_eq_add_neg x 1
-    rw [otherstupid]
-    rw [polydivide (x^3) (2 * x - (1 + 2)) x 1]
+    intro x h1
+    rw [sub_eq_add_neg x 1]
+    rw [← add_sub]
+    rw [polydivide (x^3) (2 * x - (1 + 2)) x (-1)]
