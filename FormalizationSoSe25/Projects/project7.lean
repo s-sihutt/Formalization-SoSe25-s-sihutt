@@ -28,11 +28,13 @@ theorem polydivide (z1 z2 n1 n2 : ℝ) (nz: n1 + n2 ≠ 0) (nzz: n1 ≠ 0): (z1 
     rw [← sub_div z2 (z1 * (n2 / n1)) (n1 + n2)]
     simp [nzz]
 
-def δEval (ε : ℝ): ℝ := Real.sqrt (9:ℝ)
+theorem mul_mul_lt (a1 a2 b1 b2 : ℝ) (a1sb1: a1 < b1) (a2sb2: a2 < b2): (a1 * a2 < b1 * b2) ↔ (a1 < b1) := by
+    constructor
+    simp [a1sb1]
+    sorry
 
-#check δEval 5
 
-theorem testfun1 (x : ℝ) : is_derivative_at {x1 : ℝ| (x1 ≠ 0) ∧ (x1 - 1 ≠ 0)} (5 : ℝ) (1 : ℝ)
+theorem testfun1 : is_derivative_at {x1 : ℝ| (x1 ≠ 0) ∧ (x1 - 1 ≠ 0)} (5 : ℝ) (1 : ℝ)
     (fun x : ℝ ↦ x^3 + 2*x + 4) := by
     simp[is_derivative_at]
     simp[epsilon_delta]
@@ -180,6 +182,79 @@ theorem testfun1 (x : ℝ) : is_derivative_at {x1 : ℝ| (x1 ≠ 0) ∧ (x1 - 1 
     simp [h2]
     rw [abs_mul]
 
-    intro h0
+    rw[abs_lt]
+    intro ha
+    obtain ⟨ha1, ha2⟩ := ha
+
+    have h0: |x-1| < -3/2 + Real.sqrt (ε + 9/4) := by
+        rw[abs_lt]
+        constructor
+        · linarith
+        · linarith
+
     have h00: |x+2| < -3/2 + Real.sqrt (ε + 9/4) + 3  := by
-      rw [add_assoc]
+      rw[abs_lt]
+      constructor
+      · rw [← lt_neg_add_iff_lt]
+        rw [add_comm]
+        rw [← sub_add_cancel x 1]
+        rw [neg_neg]
+        rw [add_assoc]
+        rw [add_assoc]
+        rw [add_assoc]
+        rw [← add_assoc 1 2]
+        rw [← add1a2]
+        rw [add_comm (Real.sqrt (ε + 9/4))]
+        rw [← add_assoc]
+        rw [← add_assoc (-3/2)]
+        rw [add_comm (-3/2)]
+        rw [add_assoc]
+        rw [← add_assoc 3]
+        rw [← add_assoc 3 3 (-3/2)]
+        have add3a3: 6 = (3:ℝ) + (3:ℝ) := by ring
+        rw [← add3a3]
+        rw [← add_assoc]
+        rw [← add_assoc]
+        rw [add_assoc (x - 1)]
+        rw [add_assoc]
+        rw [← neg_neg (6 + (-3/2) + Real.sqrt (ε + 9/4) )]
+        rw [add_comm (x-1)]
+        rw [lt_neg_add_iff_lt]
+        rw [add_assoc]
+        rw [neg_add]
+        linarith
+      · rw [← lt_neg_add_iff_lt]
+        rw [neg_add]
+        rw [add_assoc]
+        rw [add_assoc]
+        rw [← add_comm 3]
+        rw [← add_assoc (-3/2)]
+        rw [← add_comm 3]
+        rw [add_assoc 3]
+        rw [← add_assoc (-2)]
+        have addm2a3: -(-1)= (-(2:ℝ)) + (3:ℝ) := by ring
+        rw [← addm2a3]
+        rw [← add_assoc]
+        rw [← neg_add]
+        rw [← sub_eq_add_neg]
+        rw [lt_neg_add_iff_lt]
+        linarith
+
+    have εMul: ε = (-3/2 + Real.sqrt (ε + 9/4))*(-3/2 + Real.sqrt (ε + 9/4) + 3) := by
+        ring_nf
+        rw[Real.sq_sqrt]
+        rw[← add_assoc]
+        rw[add_comm (-9/4)]
+        rw[neg_div]
+        rw[add_neg_cancel]
+        rw[zero_add ε]
+        linarith
+    rw [εMul]
+    rw [mul_mul_lt]
+    simp[h0]
+    simp[h0]
+    simp[h00]
+
+
+--    rw [lt_or_lt_of_mul_lt_mul (|x-1|) (-3/2 + Real.sqrt (ε + 9/4)) (|x+2|) (-3/2 + Real.sqrt (ε + 9/4) + 3)]
+--    simp[mul_lt_mul_of_lt_of_le (|x-1|) (|x+2|) (-3/2 + Real.sqrt (ε + 9/4)) (-3/2 + Real.sqrt (ε + 9/4) + 3)]
