@@ -6,7 +6,8 @@ def epsilon_delta (X : Set ℝ) (x0 : ℝ) (y0 : ℝ) (f : ℝ → ℝ) : Prop :
 def is_derivative_at (X : Set ℝ) (y0 : ℝ) (x0 : ℝ) (f : ℝ → ℝ) : Prop :=
     epsilon_delta X (x0 : ℝ) (y0 : ℝ) (fun x : ℝ ↦ (f x - f x0) / (x - x0))
 
-theorem polydivide (z1 z2 n1 n2 : ℝ) (nz: n1 + n2 ≠ 0) (nzz: n1 ≠ 0): (z1 + z2)/(n1 + n2) = z1/n1 + (z2 - z1 * n2/n1)/(n1 + n2) := by
+theorem polydivide (z1 z2 n1 n2 : ℝ) (nz: n1 + n2 ≠ 0) (nzz: n1 ≠ 0):
+(z1 + z2)/(n1 + n2) = z1/n1 + (z2 - z1 * n2/n1)/(n1 + n2) := by
     rw [← div_add_div_same z1 z2 (n1 + n2)]
     rw [← add_zero (z1/(n1 + n2))]
     rw [← sub_self ((z1 * n2/n1)/(n1 + n2))]
@@ -154,6 +155,7 @@ theorem testfun1 : is_derivative_at {x1 : ℝ| (x1 ≠ 0) ∧ (x1 - 1 ≠ 0)} (5
     rw[← sub_eq_add_neg]
     rw[← mul_div]
     simp [h2]
+
     rw[add_assoc]
     rw[← sub_eq_add_neg]
     rw[← mul_one (x*x + (x-2))]
